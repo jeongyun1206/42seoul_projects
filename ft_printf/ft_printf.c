@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:56:41 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/02 20:21:29 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/15 17:04:18 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	ft_printf_form(va_list ap, char *str, size_t *idx)
 		rtn = ft_printf_x(ap);
 	else if (str[*idx] == 'X')
 		rtn = ft_printf_large_x(ap);
-	else
+	else if (str[*idx] == '%')
 		rtn = write(1, "%%", 1);
+	else
+		rtn = 0;
 	return (rtn);
 }
 

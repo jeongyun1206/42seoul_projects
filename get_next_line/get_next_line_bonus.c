@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:43:47 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/30 19:42:28 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/15 16:56:55 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*gnl_join(char *rtn, t_gnl_vars *buff)
 	size_t	join_idx;
 	size_t	idx;
 
-	join = malloc(ft_strlen(rtn) + buff->len + 1);
+	join = malloc(gnl_strlen(rtn) + buff->len + 1);
 	if (!join)
 	{
 		free(rtn);
@@ -122,14 +122,14 @@ char	*get_next_line(int fd)
 	line[fd].arr = gnl_new_line(&(line[fd]), fd);
 	if (!line[fd].arr)
 		return (gnl_free(&line[fd], 0));
-	gnl_set_vars(&line[fd], ft_strlen(line[fd].arr));
-	rtn_line = ft_substr(line[fd].arr, 0, line[fd].idx + 1);
+	gnl_set_vars(&line[fd], gnl_strlen(line[fd].arr));
+	rtn_line = gnl_substr(line[fd].arr, 0, line[fd].idx + 1);
 	if (!rtn_line)
 		return (gnl_free(&line[fd], 0));
-	tmp = ft_substr(line[fd].arr, line[fd].idx + 1,
+	tmp = gnl_substr(line[fd].arr, line[fd].idx + 1,
 			line[fd].len - line[fd].idx);
 	gnl_free(&line[fd], 0);
 	line[fd].arr = tmp;
-	gnl_set_vars(&line[fd], ft_strlen(line[fd].arr));
+	gnl_set_vars(&line[fd], gnl_strlen(line[fd].arr));
 	return (rtn_line);
 }
