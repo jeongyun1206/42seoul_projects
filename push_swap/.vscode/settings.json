@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "string": "cpp",
+        "iostream": "cpp",
+        "push_swap_deque.h": "c",
+        "deque.h": "c",
+        "stdlib.h": "c",
+        "ps_stack.h": "c",
+        "ps_stack_cmd_reverse_rotate": "cpp",
+        "push_swap.h": "c",
+        "ft_printf.h": "c"
+    }
+}
