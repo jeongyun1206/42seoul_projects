@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_bubble_sort.h                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 10:55:00 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/19 10:58:45 by jnho             ###   ########seoul.kr  */
+/*   Created: 2022/11/10 15:44:00 by jnho              #+#    #+#             */
+/*   Updated: 2022/12/18 16:13:10 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  PS_BUBBLE_SORT_H
-# define    PS_BUBBLE_SORT_H
+#include "ft_printf.h"
 
-# include "../ps_stack/ps_stack.h"
+size_t	ft_strlen(const char *str)
+{
+	size_t	length;
 
-int ps_bubble_sort(t_ps_stack *ps_stack);
-
-#endif
+	length = 0;
+	while (str[length])
+		length++;
+	return (length);
+}

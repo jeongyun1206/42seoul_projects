@@ -11,6 +11,7 @@
         "ft_printf.h": "c",
         "ps_greedy.h": "c",
         "unistd.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "error_control.h": "c"
     }
 }

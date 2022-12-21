@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deque_print_func.c                                 :+:      :+:    :+:   */
+/*   error_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 10:30:40 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 13:32:41 by jnho             ###   ########seoul.kr  */
+/*   Created: 2022/12/21 15:48:18 by jnho              #+#    #+#             */
+/*   Updated: 2022/12/21 16:03:50 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "deque.h"
-#include <stdio.h>//
+#include "error_control.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-void    dq_prt(t_deque *deque)
-{    
-    t_deque_element *element;
-
-    element = deque->head;
-    while (element)
-    {
-        printf("%d ", element->data);
-        element = element->back;
-    }
-    printf("\n");
+void	error_control(void)
+{
+	write(2, "error\n", 6);
+	exit(1);
 }
