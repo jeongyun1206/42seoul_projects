@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 16:06:08 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/18 16:00:04 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/19 15:50:21 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 10240
 # endif
 
 # define FD_MAX 1024

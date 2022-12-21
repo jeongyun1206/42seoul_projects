@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 12:02:52 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/19 10:21:52 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/20 16:20:18 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int             dq_empty(t_deque *deque);
 int             dq_size(t_deque *deque);
 int             dq_front(t_deque *deque);
 int             dq_back(t_deque *deque);
+int             dq_find_element_by_idx(t_deque *deque, int idx, int *element);
 
 t_deque_element *new_deque_element(int data);
 void            dq_push_front(t_deque *deque, int data);

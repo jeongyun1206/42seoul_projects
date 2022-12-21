@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 17:47:17 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/16 18:03:29 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 13:56:33 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void ps_stack_cmd_pa(t_ps_stack *ps_stack)
         return ;
     b_data = dq_pop_back(&(ps_stack->stack_b));
     dq_push_back(&(ps_stack->stack_a), b_data);
+    ft_printf("pa\n");
 }
 
 void ps_stack_cmd_pb(t_ps_stack *ps_stack)
@@ -30,4 +31,5 @@ void ps_stack_cmd_pb(t_ps_stack *ps_stack)
         return ;
     a_data = dq_pop_back(&(ps_stack->stack_a));
     dq_push_back(&(ps_stack->stack_b), a_data);
+    ft_printf("pb\n");
 }

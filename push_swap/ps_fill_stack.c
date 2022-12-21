@@ -6,14 +6,13 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 16:26:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/19 13:38:17 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/20 10:59:17 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-int confirm_argv(char *arg)
+void confirm_argv(char *arg)
 {
     size_t  idx;
 
@@ -23,28 +22,47 @@ int confirm_argv(char *arg)
     while (arg[idx])
     {
         if (arg[idx] < '0' || '9' < arg[idx])
-            return (0);
+            error_control();
         idx++;
     }
-    return (1);
 }
 
-int ps_fill_stack(int argc, char **argv, t_ps_stack *ps_stack)
+void confirm_repetition(t_ps_stack ps_stack)
+{
+    t_deque_element *element;
+    t_deque         *stack_a;
+    t_deque_element *search_element;
+
+    stack_a = &ps_stack.stack_a;
+    while (stack_a->head)
+    {
+        element = stack_a->head;
+        if (!stack_a->head->back)
+            return ;
+        search_element = stack_a->head->back;
+        while (search_element)
+        {
+            if (element->data == search_element->data)
+                error_control();
+            search_element = search_element->back;
+        }
+        (stack_a->head) = (stack_a->head)->back;
+    }
+}
+
+void ps_fill_stack(int argc, char **argv, t_ps_stack *ps_stack)
 {
     int arg_idx;
 
+    if (argc < 2)
+        error_control();
     arg_idx = 1;
     init_ps_stack(ps_stack);
     while (arg_idx < argc)
     {
-        if (!confirm_argv(argv[arg_idx]))
-        {
-            delete_ps_stack(ps_stack);
-            ft_printf("error\n");
-            return (0);
-        }
+        confirm_argv(argv[arg_idx]);
         dq_push_front(&(ps_stack->stack_a), ft_atoi(argv[arg_idx]));
         arg_idx++;
     }
-    return (1);
+    confirm_repetition(*ps_stack);
 }

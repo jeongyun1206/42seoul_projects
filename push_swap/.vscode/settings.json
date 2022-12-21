@@ -8,6 +8,9 @@
         "ps_stack.h": "c",
         "ps_stack_cmd_reverse_rotate": "cpp",
         "push_swap.h": "c",
-        "ft_printf.h": "c"
+        "ft_printf.h": "c",
+        "ps_greedy.h": "c",
+        "unistd.h": "c",
+        "limits.h": "c"
     }
 }

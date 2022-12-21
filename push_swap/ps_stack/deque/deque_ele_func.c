@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 16:55:35 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/16 17:50:29 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/19 17:03:59 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_deque_element *new_deque_element(int data)
     return (new_element);
 }
 
-//push_front X: 정수 X를 덱의 앞에 넣는다.
 void    dq_push_front(t_deque *deque, int data)
 {
     t_deque_element *new_element;
@@ -45,7 +44,6 @@ void    dq_push_front(t_deque *deque, int data)
     deque->head = new_element;
 }
 
-//push_back X: 정수 X를 덱의 뒤에 넣는다.
 void    dq_push_back(t_deque *deque, int data)
 {
     t_deque_element *new_element;
@@ -65,7 +63,6 @@ void    dq_push_back(t_deque *deque, int data)
     deque->rear = new_element;
 }
 
-//pop_front: 덱의 가장 앞에 있는 수를 빼고, 그 수를 출력한다. 만약, 덱에 들어있는 정수가 없는 경우에는 -1을 출력한다.
 int dq_pop_front(t_deque *deque)
 {
     t_deque_element *tmp_element;
@@ -85,7 +82,6 @@ int dq_pop_front(t_deque *deque)
     return (rtn_data);    
 }
 
-//pop_back: 덱의 가장 뒤에 있는 수를 빼고, 그 수를 출력한다. 만약, 덱에 들어있는 정수가 없는 경우에는 -1을 출력한다.
 int dq_pop_back(t_deque *deque)
 {
     t_deque_element *tmp_element;
