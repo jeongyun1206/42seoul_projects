@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:13:56 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 13:11:18 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 15:01:10 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int     **ps_greedy_make_cmd_table(t_ps_stack *ps_stack);
 void    ps_greedy_fill_total_table(int **table, t_deque *stack_b, int idx);
 void    ps_greedy_fill_cmd_table(t_ps_stack *ps_stack, int **table);
 
-int ps_greedy_find_smallest_element_idx(t_ps_stack *ps_stack);
 int ps_greedy_find_smaller_idx(t_deque stack_a, int b_element);
 int ps_greedy_find_bigger_idx(t_deque stack_a, int b_element);
 int ps_greedy_find_location(t_ps_stack *ps_stack, int b_element);
@@ -36,3 +35,5 @@ void    ps_greedy_fill_ra_table(int **table, t_ps_stack *ps_stack, int idx);
 
 int ps_greedy_find_smallest_cmd_idx(t_ps_stack *ps_stack, int **cmd_table);
 int ps_greedy_move_element(t_ps_stack *ps_stack, int **cmd_table);
+int ps_greedy_find_smallest_element_idx(t_ps_stack *ps_stack);
+size_t  ps_greedy_move_smallest_element_to_top(t_ps_stack *ps_stack);

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:58:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 13:50:15 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 15:09:49 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,54 @@ int ps_greedy_move_element(t_ps_stack *ps_stack, int **cmd_table)
         cmd_idx++;
     }
     return (total_cmd_cnt);
+}
+
+int ps_greedy_find_smallest_element_idx(t_ps_stack *ps_stack)
+{
+    int     smallest_element_idx;
+    int     smallest_element;
+    int     cur_stack_idx;
+    t_deque_element *a_element;
+
+    a_element = ps_stack->stack_a.rear;
+    smallest_element = 2147483647;
+    cur_stack_idx = 0;
+    while (a_element)
+    {
+        if (a_element->data < smallest_element)
+        {
+            smallest_element = a_element->data;
+            smallest_element_idx = cur_stack_idx;
+        }
+        a_element = a_element->front;
+        cur_stack_idx++;
+    }
+    return (smallest_element_idx);
+}
+
+size_t  ps_greedy_move_smallest_element_to_top(t_ps_stack *ps_stack)
+{
+    int smallest_element_idx;
+    int rtn_cmd;
+
+    smallest_element_idx = ps_greedy_find_smallest_element_idx(ps_stack);
+    rtn_cmd = smallest_element_idx;
+    if (smallest_element_idx < dq_size(&ps_stack->stack_a) / 2)
+    {
+        while (smallest_element_idx)
+        {
+            ps_stack_cmd_ra(ps_stack);
+            smallest_element_idx--;
+        }
+    }
+    else
+    {
+        smallest_element_idx = dq_size(&ps_stack->stack_a) - smallest_element_idx;
+        while (smallest_element_idx)
+        {
+            ps_stack_cmd_rra(ps_stack);
+            smallest_element_idx--;
+        }
+    }
+    return (rtn_cmd);
 }

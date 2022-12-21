@@ -6,34 +6,11 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:39:57 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 14:37:56 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/21 15:01:59 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps_greedy.h"
-
-int ps_greedy_find_smallest_element_idx(t_ps_stack *ps_stack)
-{
-    int     smallest_element_idx;
-    int     smallest_element;
-    int     cur_stack_idx;
-    t_deque_element *a_element;
-
-    a_element = ps_stack->stack_a.rear;
-    smallest_element = 2147483647;
-    cur_stack_idx = 0;
-    while (a_element)
-    {
-        if (a_element->data < smallest_element)
-        {
-            smallest_element = a_element->data;
-            smallest_element_idx = cur_stack_idx;
-        }
-        a_element = a_element->front;
-        cur_stack_idx++;
-    }
-    return (smallest_element_idx);
-}
 
 int ps_greedy_find_smaller_idx(t_deque stack_a, int b_element)
 {
@@ -79,7 +56,6 @@ int ps_greedy_find_bigger_idx(t_deque stack_a, int b_element)
         cur_stack_idx++;
     }
     return (bigger_element_idx); 
-    
 }
 
 int ps_greedy_find_location(t_ps_stack *ps_stack, int b_element)
