@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 16:26:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 16:03:07 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/22 17:05:00 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	confirm_argv(char *arg)
 	idx = 0;
 	if (arg[idx] == '-')
 		idx++;
+	if (arg[idx] == 0)
+		error_control();
 	while (arg[idx])
 	{
 		if (arg[idx] < '0' || '9' < arg[idx])
@@ -51,12 +53,29 @@ void	confirm_repetition(t_ps_stack ps_stack)
 	}
 }
 
-void	ps_fill_stack(int argc, char **argv, t_ps_stack *ps_stack)
+void confirm_sorted(t_ps_stack ps_stack)
+{
+	t_deque_element	*element;
+	int				data;
+
+	element = ps_stack.stack_a.rear;
+	data = element->data;
+	while (element)
+	{
+		if (element->data < data)
+			return ;
+		data = element->data;
+		element = element->front;
+	}
+	exit(1);
+}
+
+void	ps_fill_stack(int argc, char **argv, t_ps_stack *ps_stack, int checker)
 {
 	int	arg_idx;
 
 	if (argc < 2)
-		error_control();
+		exit(0);
 	arg_idx = 1;
 	init_ps_stack(ps_stack);
 	while (arg_idx < argc)
@@ -66,4 +85,6 @@ void	ps_fill_stack(int argc, char **argv, t_ps_stack *ps_stack)
 		arg_idx++;
 	}
 	confirm_repetition(*ps_stack);
+	if (!checker)
+		confirm_sorted(*ps_stack);
 }

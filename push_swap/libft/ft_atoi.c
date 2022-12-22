@@ -6,28 +6,28 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 15:55:04 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/19 10:09:10 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/22 15:55:45 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../error_control/error_control.h"
 
 static int	check_range(long long rtn_num, int next_num)
 {
 	long long	l_max;
 	long long	l_min;
 
-	l_max = 9223372036854775807;
-	l_min = 9223372036854775807;
-	l_min = l_min * -1 - 1;
+	l_max = 2147483647;
+	l_min = -2147483648;
 	if (rtn_num > l_max / 10)
-		return (-1);
+		error_control();
 	if (rtn_num < l_min / 10)
-		return (0);
+		error_control();
 	if (rtn_num * 10 > l_max - next_num)
-		return (-1);
+		error_control();
 	if (rtn_num * 10 < l_min + next_num)
-		return (0);
+		error_control();
 	return (1);
 }
 

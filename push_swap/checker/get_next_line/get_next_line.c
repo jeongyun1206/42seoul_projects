@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 16:43:47 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/19 15:49:52 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/15 17:02:03 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 #include <unistd.h>
 
 char	*gnl_free(t_gnl_vars *var1, t_gnl_vars *var2)
@@ -113,23 +113,20 @@ char	*get_next_line(int fd)
 {
 	char				*tmp;
 	char				*rtn_line;
-	static t_gnl_vars	line[FD_MAX];
+	static t_gnl_vars	line;
 
-	if (fd < 0)
-		return (0);
-	if (read(fd, 0, 0) == -1)
-		return (gnl_free(&line[fd], 0));
-	line[fd].arr = gnl_new_line(&(line[fd]), fd);
-	if (!line[fd].arr)
-		return (gnl_free(&line[fd], 0));
-	gnl_set_vars(&line[fd], gnl_strlen(line[fd].arr));
-	rtn_line = gnl_substr(line[fd].arr, 0, line[fd].idx + 1);
+	if (read(fd, 0, 0) == -1 || fd < 0)
+		return (gnl_free(&line, 0));
+	line.arr = gnl_new_line(&line, fd);
+	if (!line.arr)
+		return (gnl_free(&line, 0));
+	gnl_set_vars(&line, gnl_strlen(line.arr));
+	rtn_line = gnl_substr(line.arr, 0, line.idx + 1);
 	if (!rtn_line)
-		return (gnl_free(&line[fd], 0));
-	tmp = gnl_substr(line[fd].arr, line[fd].idx + 1,
-			line[fd].len - line[fd].idx);
-	gnl_free(&line[fd], 0);
-	line[fd].arr = tmp;
-	gnl_set_vars(&line[fd], gnl_strlen(line[fd].arr));
+		return (gnl_free(&line, 0));
+	tmp = gnl_substr(line.arr, line.idx + 1, line.len - line.idx);
+	gnl_free(&line, 0);
+	line.arr = tmp;
+	gnl_set_vars(&line, gnl_strlen(line.arr));
 	return (rtn_line);
 }

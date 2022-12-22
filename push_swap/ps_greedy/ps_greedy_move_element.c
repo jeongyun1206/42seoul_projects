@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:58:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 16:12:36 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/22 11:45:22 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ps_greedy_find_smallest_cmd_idx(t_ps_stack *ps_stack, int **cmd_table)
 	int	smallest_cmd_idx;
 	int	smallest_cmd;
 	int	search_idx;
+	int	smallest_element;
+	int	search_element;
 
 	smallest_cmd = 2147483647;
 	search_idx = 0;
@@ -27,12 +29,21 @@ int	ps_greedy_find_smallest_cmd_idx(t_ps_stack *ps_stack, int **cmd_table)
 			smallest_cmd = cmd_table[search_idx][5];
 			smallest_cmd_idx = search_idx;
 		}
+		else if (cmd_table[search_idx][5] == smallest_cmd)
+		{
+			dq_find_element_by_idx(&ps_stack->stack_b, smallest_element, &smallest_element);
+			dq_find_element_by_idx(&ps_stack->stack_b, search_idx, &search_element);
+			if (smallest_element < search_element)
+			{
+				smallest_cmd_idx = search_idx;
+			}
+		}
 		search_idx++;
 	}
 	return (smallest_cmd_idx);
 }
 
-void	ps_greedy_move_element_by_cmd_idx(int cmd_idx)
+void	ps_greedy_move_element_by_cmd_idx(int cmd_idx, t_ps_stack *ps_stack)
 {
 	if (cmd_idx == 0)
 		ps_stack_cmd_rb(ps_stack);
@@ -61,7 +72,7 @@ int	ps_greedy_move_element(t_ps_stack *ps_stack, int **cmd_table)
 		cmd_cnt = 0;
 		while (cmd_cnt < cmd_table[smallest_cmd_idx][cmd_idx])
 		{
-			ps_greedy_move_element_by_cmd_idx(cmd_idx);
+			ps_greedy_move_element_by_cmd_idx(cmd_idx, ps_stack);
 			cmd_cnt++;
 		}
 		total_cmd_cnt += cmd_cnt;

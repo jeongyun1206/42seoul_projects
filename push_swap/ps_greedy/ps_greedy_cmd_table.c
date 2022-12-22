@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 17:17:47 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 16:06:58 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/22 16:30:15 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	**ps_greedy_make_cmd_table(t_ps_stack *ps_stack)
 	int	table_size;
 
 	table_size = dq_size(&ps_stack->stack_b);
-	cmd_table = (int **)malloc(sizeof(int *) * table_size);
+	cmd_table = (int **)malloc(sizeof(int *) * table_size + 1);
 	if (!cmd_table)
 		error_control();
+	cmd_table[table_size] = 0;
 	table_idx = 0;
 	while (table_idx < table_size)
 	{

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:12:53 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/21 16:14:01 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/22 16:24:00 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,30 @@ void	ps_greedy_get_pivot(t_ps_stack *ps_stack, int *pivot_a, int *pivot_b)
 	quick_sort(arr, 0, idx - 1);
 	*pivot_a = arr[idx / 3];
 	*pivot_b = arr[2 * idx / 3];
+	free(arr);
 }
+
 
 size_t	ps_greedy_move_a_to_b(t_ps_stack *ps_stack)
 {
 	size_t	cmd_cnt;
+	int		ele[3];
 
 	cmd_cnt = 0;
-	while (dq_size(&ps_stack->stack_a))
+	while (dq_size(&ps_stack->stack_a) > 3)
 	{
 		ps_stack_cmd_pb(ps_stack);
 		cmd_cnt++;
 	}
+	while (dq_size(&ps_stack->stack_a) < 3)
+	{
+		ps_stack_cmd_pa(ps_stack);
+		cmd_cnt++;
+	}
+	ele[0] = ps_stack->stack_a.rear->data;	
+	ele[1] = ps_stack->stack_a.rear->front->data;	
+	ele[2] = ps_stack->stack_a.rear->front->front->data;
+	cmd_cnt += ps_greedy_sort_three_element(ps_stack, ele);
 	return (cmd_cnt);
 }
 
@@ -83,7 +95,15 @@ size_t	ps_greedy_pivot_partitioning(t_ps_stack *ps_stack)
 	int		pivot_b;
 
 	ps_greedy_get_pivot(ps_stack, &pivot_a, &pivot_b);
-	cmd_cnt = ps_greedy_partitioning(ps_stack, pivot_a, pivot_b);
+	if (dq_size(&ps_stack->stack_a) == 5)
+	{
+		ps_stack_cmd_pb(ps_stack);
+		ps_stack_cmd_pb(ps_stack);
+		cmd_cnt = 2;
+		cmd_cnt += ps_greedy_move_a_to_b(ps_stack);
+	}
+	else
+		cmd_cnt = ps_greedy_partitioning(ps_stack, pivot_a, pivot_b);
 	cmd_cnt += ps_greedy_move_a_to_b(ps_stack);
 	return (cmd_cnt);
 }

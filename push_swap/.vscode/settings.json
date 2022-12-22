@@ -12,6 +12,9 @@
         "ps_greedy.h": "c",
         "unistd.h": "c",
         "limits.h": "c",
-        "error_control.h": "c"
+        "error_control.h": "c",
+        "libft.h": "c",
+        "checker.h": "c",
+        "get_next_line.h": "c"
     }
 }
