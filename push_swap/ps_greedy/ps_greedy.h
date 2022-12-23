@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:13:56 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 16:26:35 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 14:08:21 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ size_t	ps_greedy_move_smallest_element_to_top(t_ps_stack *ps_stack);
 
 void	ps_set_three_ele(int *ele, t_deque stack_a);
 size_t	ps_greedy_sort_three_element(t_ps_stack *ps_stack, int *ele);
-size_t  ps_greedy_sort_three_element_ele_1(t_ps_stack *ps_stack, int *ele);
-size_t  ps_greedy_sort_three_element_ele_2(t_ps_stack *ps_stack, int *ele);
-size_t  ps_greedy_sort_three_element_ele_3(t_ps_stack *ps_stack, int *ele);
+size_t	ps_greedy_sort_three_element_ele_1(t_ps_stack *ps_stack, int *ele);
+size_t	ps_greedy_sort_three_element_ele_2(t_ps_stack *ps_stack, int *ele);
+size_t	ps_greedy_sort_three_element_ele_3(t_ps_stack *ps_stack, int *ele);
 
-size_t ps_greedy_sort_four_element(t_ps_stack *ps_stack, int *ele);
+size_t	ps_greedy_sort_four_element(t_ps_stack *ps_stack, int *ele);
 
 #endif

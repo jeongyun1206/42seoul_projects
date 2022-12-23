@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:58:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 11:45:22 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 14:12:58 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	ps_greedy_find_smallest_cmd_idx(t_ps_stack *ps_stack, int **cmd_table)
 	int	smallest_cmd_idx;
 	int	smallest_cmd;
 	int	search_idx;
-	int	smallest_element;
-	int	search_element;
 
 	smallest_cmd = 2147483647;
 	search_idx = 0;
@@ -28,15 +26,6 @@ int	ps_greedy_find_smallest_cmd_idx(t_ps_stack *ps_stack, int **cmd_table)
 		{
 			smallest_cmd = cmd_table[search_idx][5];
 			smallest_cmd_idx = search_idx;
-		}
-		else if (cmd_table[search_idx][5] == smallest_cmd)
-		{
-			dq_find_element_by_idx(&ps_stack->stack_b, smallest_element, &smallest_element);
-			dq_find_element_by_idx(&ps_stack->stack_b, search_idx, &search_element);
-			if (smallest_element < search_element)
-			{
-				smallest_cmd_idx = search_idx;
-			}
 		}
 		search_idx++;
 	}

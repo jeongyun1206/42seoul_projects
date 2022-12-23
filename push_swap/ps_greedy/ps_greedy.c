@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 16:19:05 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 16:31:06 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 14:07:34 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ size_t	ps_greedy(t_ps_stack *ps_stack)
 	ps_greedy_free_cmd_table(cmd_table);
 	return (cmd_cnt);
 }
-
-
 
 /**
  * table | rb | rrb | rra | pa | ra | total |

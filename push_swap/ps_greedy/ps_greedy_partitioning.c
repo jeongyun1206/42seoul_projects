@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 14:12:53 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 16:24:00 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 14:14:49 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ps_greedy_get_pivot(t_ps_stack *ps_stack, int *pivot_a, int *pivot_b)
 	free(arr);
 }
 
-
 size_t	ps_greedy_move_a_to_b(t_ps_stack *ps_stack)
 {
 	size_t	cmd_cnt;
@@ -52,8 +51,8 @@ size_t	ps_greedy_move_a_to_b(t_ps_stack *ps_stack)
 		ps_stack_cmd_pa(ps_stack);
 		cmd_cnt++;
 	}
-	ele[0] = ps_stack->stack_a.rear->data;	
-	ele[1] = ps_stack->stack_a.rear->front->data;	
+	ele[0] = ps_stack->stack_a.rear->data;
+	ele[1] = ps_stack->stack_a.rear->front->data;
 	ele[2] = ps_stack->stack_a.rear->front->front->data;
 	cmd_cnt += ps_greedy_sort_three_element(ps_stack, ele);
 	return (cmd_cnt);

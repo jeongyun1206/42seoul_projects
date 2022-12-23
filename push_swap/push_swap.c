@@ -6,12 +6,12 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 16:00:48 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 17:06:31 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 13:59:55 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-# include "./ps_greedy/ps_greedy.h"
+#include "./ps_greedy/ps_greedy.h"
 
 int	main(int argc, char **argv)
 {

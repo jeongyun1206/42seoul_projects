@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 16:26:54 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/23 12:24:09 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 13:59:36 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	confirm_repetition(t_ps_stack ps_stack)
 	}
 }
 
-void confirm_sorted(t_ps_stack ps_stack)
+void	confirm_sorted(t_ps_stack ps_stack)
 {
 	t_deque_element	*element;
 	int				data;

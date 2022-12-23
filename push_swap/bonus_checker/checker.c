@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:01:33 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/23 13:45:58 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 14:01:37 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strncmp(const char *str1, const char *str2, size_t num)
 	return ((unsigned char)str1[idx] - (unsigned char)str2[idx]);
 }
 
-void checker_confirm_sorted(t_ps_stack ps_stack)
+void	checker_confirm_sorted(t_ps_stack ps_stack)
 {
 	t_deque_element	*element;
 	int				data;
@@ -56,25 +56,25 @@ void	checker_do_cmd(char *cmd, t_ps_stack *ps_stack)
 
 	len = ft_strlen(cmd);
 	if (!ft_strncmp(cmd, "sa", len) || ft_strncmp(cmd, "sa\n", len))
-		ps_stack_cmd_sa(ps_stack);	
+		ps_stack_cmd_sa(ps_stack);
 	if (!ft_strncmp(cmd, "sb", len) || ft_strncmp(cmd, "sb\n", len))
-		ps_stack_cmd_sb(ps_stack);	
+		ps_stack_cmd_sb(ps_stack);
 	if (!ft_strncmp(cmd, "ss", len) || ft_strncmp(cmd, "ss\n", len))
-		ps_stack_cmd_ss(ps_stack);	
+		ps_stack_cmd_ss(ps_stack);
 	if (!ft_strncmp(cmd, "pa", len) || ft_strncmp(cmd, "pa\n", len))
-		ps_stack_cmd_pa(ps_stack);	
+		ps_stack_cmd_pa(ps_stack);
 	if (!ft_strncmp(cmd, "pb", len) || ft_strncmp(cmd, "pb\n", len))
-		ps_stack_cmd_pb(ps_stack);	
+		ps_stack_cmd_pb(ps_stack);
 	if (!ft_strncmp(cmd, "ra", len) || ft_strncmp(cmd, "ra\n", len))
-		ps_stack_cmd_ra(ps_stack);	
+		ps_stack_cmd_ra(ps_stack);
 	if (!ft_strncmp(cmd, "rb", len) || ft_strncmp(cmd, "rb\n", len))
-		ps_stack_cmd_rb(ps_stack);	
+		ps_stack_cmd_rb(ps_stack);
 	if (!ft_strncmp(cmd, "rr", len) || ft_strncmp(cmd, "rr\n", len))
-		ps_stack_cmd_rr(ps_stack);	
+		ps_stack_cmd_rr(ps_stack);
 	if (!ft_strncmp(cmd, "rra", len) || ft_strncmp(cmd, "rra\n", len))
-		ps_stack_cmd_rra(ps_stack);	
+		ps_stack_cmd_rra(ps_stack);
 	if (!ft_strncmp(cmd, "rrb", len) || ft_strncmp(cmd, "rrb\n", len))
-		ps_stack_cmd_rrb(ps_stack);	
+		ps_stack_cmd_rrb(ps_stack);
 	if (!ft_strncmp(cmd, "rrr", len) || ft_strncmp(cmd, "rrr\n", len))
 		ps_stack_cmd_rrr(ps_stack);
 }
