@@ -16,7 +16,9 @@ BONUS_SRCS = ps_fill_stack.c ./bonus_checker/checker.c\
 		./libft/ft_atoi.c \
 		./ps_stack/deque/deque_ele_func.c  ./ps_stack/deque/deque_info_func.c ./ps_stack/deque/deque_init_func.c \
 		./ps_stack/ps_stack_cmd_push.c ./ps_stack/ps_stack_cmd_rotate.c ./ps_stack/ps_stack_cmd_reverse_rotate.c \
-		./ps_stack/ps_stack_cmd_swap.c ./ps_stack/ps_stack_init_func.c
+		./ps_stack/ps_stack_cmd_swap.c ./ps_stack/ps_stack_init_func.c \
+		./ps_stack/checker_stack_cmd_push.c ./ps_stack/checker_stack_cmd_rotate.c ./ps_stack/checker_stack_cmd_reverse_rotate.c \
+		./ps_stack/checker_stack_cmd_swap.c
 BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 BONUS_LDLIBS = ./bonus_checker/ft_printf/libftprintf.a
 NAME = push_swap

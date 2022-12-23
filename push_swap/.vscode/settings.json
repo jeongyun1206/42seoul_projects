@@ -15,6 +15,7 @@
         "error_control.h": "c",
         "libft.h": "c",
         "checker.h": "c",
-        "get_next_line.h": "c"
+        "get_next_line.h": "c",
+        "checker_stack.h": "c"
     }
 }

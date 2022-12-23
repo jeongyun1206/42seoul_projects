@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:01:33 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/23 14:01:37 by jnho             ###   ########.fr       */
+/*   Updated: 2022/12/23 15:11:06 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,35 @@ void	checker_confirm_sorted(t_ps_stack ps_stack)
 		data = element->data;
 		element = element->front;
 	}
-	ft_printf("OK");
+	ft_printf("OK\n");
 }
 
-void	checker_do_cmd(char *cmd, t_ps_stack *ps_stack)
+void	checker_do_cmd(char *cmd, t_ps_stack *ps_stack, int len)
 {
-	int	len;
-
-	len = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "sa", len) || ft_strncmp(cmd, "sa\n", len))
-		ps_stack_cmd_sa(ps_stack);
-	if (!ft_strncmp(cmd, "sb", len) || ft_strncmp(cmd, "sb\n", len))
-		ps_stack_cmd_sb(ps_stack);
-	if (!ft_strncmp(cmd, "ss", len) || ft_strncmp(cmd, "ss\n", len))
-		ps_stack_cmd_ss(ps_stack);
-	if (!ft_strncmp(cmd, "pa", len) || ft_strncmp(cmd, "pa\n", len))
-		ps_stack_cmd_pa(ps_stack);
-	if (!ft_strncmp(cmd, "pb", len) || ft_strncmp(cmd, "pb\n", len))
-		ps_stack_cmd_pb(ps_stack);
-	if (!ft_strncmp(cmd, "ra", len) || ft_strncmp(cmd, "ra\n", len))
-		ps_stack_cmd_ra(ps_stack);
-	if (!ft_strncmp(cmd, "rb", len) || ft_strncmp(cmd, "rb\n", len))
-		ps_stack_cmd_rb(ps_stack);
-	if (!ft_strncmp(cmd, "rr", len) || ft_strncmp(cmd, "rr\n", len))
-		ps_stack_cmd_rr(ps_stack);
-	if (!ft_strncmp(cmd, "rra", len) || ft_strncmp(cmd, "rra\n", len))
-		ps_stack_cmd_rra(ps_stack);
-	if (!ft_strncmp(cmd, "rrb", len) || ft_strncmp(cmd, "rrb\n", len))
-		ps_stack_cmd_rrb(ps_stack);
-	if (!ft_strncmp(cmd, "rrr", len) || ft_strncmp(cmd, "rrr\n", len))
-		ps_stack_cmd_rrr(ps_stack);
+	if (!ft_strncmp(cmd, "sa", len) || !ft_strncmp(cmd, "sa\n", len))
+		checker_stack_cmd_sa(ps_stack);
+	else if (!ft_strncmp(cmd, "sb", len) || !ft_strncmp(cmd, "sb\n", len))
+		checker_stack_cmd_sb(ps_stack);
+	else if (!ft_strncmp(cmd, "ss", len) || !ft_strncmp(cmd, "ss\n", len))
+		checker_stack_cmd_ss(ps_stack);
+	else if (!ft_strncmp(cmd, "pa", len) || !ft_strncmp(cmd, "pa\n", len))
+		checker_stack_cmd_pa(ps_stack);
+	else if (!ft_strncmp(cmd, "pb", len) || !ft_strncmp(cmd, "pb\n", len))
+		checker_stack_cmd_pb(ps_stack);
+	else if (!ft_strncmp(cmd, "ra", len) || !ft_strncmp(cmd, "ra\n", len))
+		checker_stack_cmd_ra(ps_stack);
+	else if (!ft_strncmp(cmd, "rb", len) || !ft_strncmp(cmd, "rb\n", len))
+		checker_stack_cmd_rb(ps_stack);
+	else if (!ft_strncmp(cmd, "rr", len) || !ft_strncmp(cmd, "rr\n", len))
+		checker_stack_cmd_rr(ps_stack);
+	else if (!ft_strncmp(cmd, "rra", len) ||!ft_strncmp(cmd, "rra\n", len))
+		checker_stack_cmd_rra(ps_stack);
+	else if (!ft_strncmp(cmd, "rrb", len) ||!ft_strncmp(cmd, "rrb\n", len))
+		checker_stack_cmd_rrb(ps_stack);
+	else if (!ft_strncmp(cmd, "rrr", len) ||!ft_strncmp(cmd, "rrr\n", len))
+		checker_stack_cmd_rrr(ps_stack);
+	else
+		error_control();
 }
 
 int	main(int argc, char **argv)
@@ -88,7 +87,7 @@ int	main(int argc, char **argv)
 	cmd = get_next_line(0);
 	while (cmd)
 	{
-		checker_do_cmd(cmd, &ps_stack);
+		checker_do_cmd(cmd, &ps_stack, ft_strlen(cmd));
 		free(cmd);
 		cmd = get_next_line(0);
 	}
