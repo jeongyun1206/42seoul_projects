@@ -1,44 +1,50 @@
-ifdef BONUS
-	NAME = checker
-	SRCS = ps_fill_stack.c ./checker/checker.c
-	LDLIBS = ./libft/libft.a ./ps_stack/ps_stack.a ./ps_stack/deque/deque.a ./error_control/error_control.a \
-			./checker/ft_printf/libftprintf.a ./checker/get_next_line/get_next_line.a
-	LDLIBS_DIR = ./libft ./ps_stack ./ps_stack/deque ./error_control ./checker/ft_printf \
-			./checker/get_next_line
-else
-	NAME = push_swap
-	SRCS = push_swap.c ps_fill_stack.c
-	LDLIBS = ./libft/libft.a ./ps_greedy/ps_greedy.a ./ps_stack/ps_stack.a ./ps_stack/deque/deque.a \
-		 ./error_control/error_control.a
-	LDLIBS_DIR = ./libft ./ps_greedy ./ps_stack ./ps_stack/deque ./error_control
-endif
-
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
+SRCS = ps_fill_stack.c push_swap.c \
+		./error_control/error_control.c \
+		./libft/ft_atoi.c \
+		./ps_greedy/ps_greedy_move_element.c ./ps_greedy/ps_greedy_rotate_a_table.c ./ps_greedy/ps_greedy_sort_three_element.c \
+		./ps_greedy/ps_greedy.c ./ps_greedy/ps_greedy_cmd_table.c ./ps_greedy/ps_greedy_partitioning.c \
+		./ps_greedy/ps_greedy_sort_four_element.c ./ps_greedy/quick_sort.c \
+		./ps_stack/deque/deque_ele_func.c  ./ps_stack/deque/deque_info_func.c ./ps_stack/deque/deque_init_func.c \
+		./ps_stack/ps_stack_cmd_push.c ./ps_stack/ps_stack_cmd_rotate.c ./ps_stack/ps_stack_cmd_reverse_rotate.c \
+		./ps_stack/ps_stack_cmd_swap.c ./ps_stack/ps_stack_init_func.c
 OBJS = ${SRCS:.c=.o}
+BONUS_SRCS = ps_fill_stack.c ./bonus_checker/checker.c\
+		./bonus_checker/get_next_line/get_next_line.c ./bonus_checker/get_next_line/get_next_line_utils.c \
+		./error_control/error_control.c \
+		./libft/ft_atoi.c \
+		./ps_stack/deque/deque_ele_func.c  ./ps_stack/deque/deque_info_func.c ./ps_stack/deque/deque_init_func.c \
+		./ps_stack/ps_stack_cmd_push.c ./ps_stack/ps_stack_cmd_rotate.c ./ps_stack/ps_stack_cmd_reverse_rotate.c \
+		./ps_stack/ps_stack_cmd_swap.c ./ps_stack/ps_stack_init_func.c
+BONUS_OBJS = ${BONUS_SRCS:.c=.o}
+BONUS_LDLIBS = ./bonus_checker/ft_printf/libftprintf.a
+NAME = push_swap
+BONUS_NAME = checker
 
-all: $(NAME)
+all : $(NAME)
 
-bonus :
-	make BONUS=1 all
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $@
 
-$(NAME) : $(OBJS) $(LDLIBS)
-	$(CC) $(OBJS) $(LDLIBS) -o $@
+bonus : $(BONUS_NAME)
 
-%.o : %.c
-	$(CC) $(CFLAGS) $< -c
+$(BONUS_NAME) : $(BONUS_OBJS) $(BONUS_LDLIBS)
+	$(CC) $(BONUS_OBJS) $(BONUS_LDLIBS) -o $@
 
-$(LDLIBS) : $(LDLIBS_DIR)
-	make -C $< make
+$(BONUS_LDLIBS) :
+	make -C ./bonus_checker/ft_printf all
 
-clean: $(LDLIBS_DIR)
-	rm -f $(OBJS)
-	make -C $< clean
+%.o: %.c
+	$(CC) $(CFLAGS) $< -c -o $@
 
-fclean:	$(LDLIBS_DIR)
-	make clean
-	rm -rf ${NAME}
-	make -C $< fclean
+clean:
+	rm -f $(OBJS) $(BONUS_OBJS)
+	make -C ./bonus_checker/ft_printf clean
+
+fclean:	clean
+	rm -rf ${NAME} $(BONUS_NAME)
+	make -C ./bonus_checker/ft_printf fclean
 
 re: fclean all
 

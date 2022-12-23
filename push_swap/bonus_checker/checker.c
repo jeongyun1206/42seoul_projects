@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 17:01:33 by jnho              #+#    #+#             */
-/*   Updated: 2022/12/22 17:20:49 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2022/12/23 13:45:58 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,35 +52,36 @@ void checker_confirm_sorted(t_ps_stack ps_stack)
 
 void	checker_do_cmd(char *cmd, t_ps_stack *ps_stack)
 {
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "sa", 2))
-		ps_stack_cmd_sa(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "sb", 2))
-		ps_stack_cmd_sb(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "ss", 2))
-		ps_stack_cmd_ss(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "pa", 2))
-		ps_stack_cmd_pa(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "pb", 2))
-		ps_stack_cmd_pb(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "ra", 2))
-		ps_stack_cmd_ra(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "rb", 2))
-		ps_stack_cmd_rb(&ps_stack);	
-	if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "rr", 2))
-		ps_stack_cmd_rr(&ps_stack);	
-	if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "rra", 3))
-		ps_stack_cmd_rra(&ps_stack);	
-	if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "rrb", 3))
-		ps_stack_cmd_rrb(&ps_stack);	
-	if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "rrr", 3))
-		ps_stack_cmd_rrr(&ps_stack);
+	int	len;
+
+	len = ft_strlen(cmd);
+	if (!ft_strncmp(cmd, "sa", len) || ft_strncmp(cmd, "sa\n", len))
+		ps_stack_cmd_sa(ps_stack);	
+	if (!ft_strncmp(cmd, "sb", len) || ft_strncmp(cmd, "sb\n", len))
+		ps_stack_cmd_sb(ps_stack);	
+	if (!ft_strncmp(cmd, "ss", len) || ft_strncmp(cmd, "ss\n", len))
+		ps_stack_cmd_ss(ps_stack);	
+	if (!ft_strncmp(cmd, "pa", len) || ft_strncmp(cmd, "pa\n", len))
+		ps_stack_cmd_pa(ps_stack);	
+	if (!ft_strncmp(cmd, "pb", len) || ft_strncmp(cmd, "pb\n", len))
+		ps_stack_cmd_pb(ps_stack);	
+	if (!ft_strncmp(cmd, "ra", len) || ft_strncmp(cmd, "ra\n", len))
+		ps_stack_cmd_ra(ps_stack);	
+	if (!ft_strncmp(cmd, "rb", len) || ft_strncmp(cmd, "rb\n", len))
+		ps_stack_cmd_rb(ps_stack);	
+	if (!ft_strncmp(cmd, "rr", len) || ft_strncmp(cmd, "rr\n", len))
+		ps_stack_cmd_rr(ps_stack);	
+	if (!ft_strncmp(cmd, "rra", len) || ft_strncmp(cmd, "rra\n", len))
+		ps_stack_cmd_rra(ps_stack);	
+	if (!ft_strncmp(cmd, "rrb", len) || ft_strncmp(cmd, "rrb\n", len))
+		ps_stack_cmd_rrb(ps_stack);	
+	if (!ft_strncmp(cmd, "rrr", len) || ft_strncmp(cmd, "rrr\n", len))
+		ps_stack_cmd_rrr(ps_stack);
 }
 
 int	main(int argc, char **argv)
 {
 	t_ps_stack	ps_stack;
-	size_t		cmd_cnt;
-	int			ele[4];
 	char		*cmd;
 
 	ps_fill_stack(argc, argv, &ps_stack, 1);
