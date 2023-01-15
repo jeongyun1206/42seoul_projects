@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:06:07 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 14:48:13 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/15 14:06:31 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_hook_vars
 }	t_hook_vars;
 
 void		error(char *error_message);
+int			exit_hook(t_window *window);
+void		confirm_file_name(char *file_name);
 
 void		sl_map_parsing_get_map(t_map *sl_map, int fd);
 void		sl_map_parsing_confirm_map_size(t_map *sl_map);

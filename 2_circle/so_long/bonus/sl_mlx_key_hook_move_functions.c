@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:15:59 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 14:52:02 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/15 14:05:01 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,16 @@ void	sl_mlx_draw_string_move_cnt(t_hook_vars *vars, int m_cnt)
 	t_xpm_img	*xpm_imgs;
 	void		*mlx_ptr;
 	void		*window_ptr;
-	int			color;
+	char		*num_str;
 
 	sl_map = vars->sl_map;
 	mlx_ptr = vars->window->mlx_ptr;
 	window_ptr = vars->window->window_ptr;
 	xpm_imgs = vars->xpm_imgs;
-	color = 0xffffff;
 	sl_mlx_put_image_to_window(vars->window, sl_map, xpm_imgs->wall, 0);
-	mlx_string_put(mlx_ptr, window_ptr, 10, 10, color, ft_itoa(m_cnt));
+	num_str = ft_itoa(m_cnt);
+	mlx_string_put(mlx_ptr, window_ptr, 10, 10, 0xffffff, num_str);
+	free(num_str);
 }
 
 void	sl_key_hook_move_player(t_hook_vars *hook_vars, int move_idx)

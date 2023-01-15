@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:38:36 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 13:51:02 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/15 13:51:08 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	sl_mlx(t_map *sl_map)
 	sl_mlx_get_elements_image_from_xpm(window.mlx_ptr, &xpm_imgs);
 	sl_mlx_draw_map(&window, sl_map, &xpm_imgs);
 	hook_vars = sl_set_hook_vars(sl_map, &window, &xpm_imgs);
+	mlx_hook(window.window_ptr, 17, 0, exit_hook, &window);
 	mlx_loop_hook(window.mlx_ptr, sl_loop_hook, &hook_vars);
 	mlx_key_hook(window.window_ptr, sl_key_hook, &hook_vars);
 	mlx_loop(window.mlx_ptr);

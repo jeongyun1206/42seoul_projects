@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:38:36 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/12 15:20:30 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/15 13:50:53 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	sl_mlx(t_map *sl_map)
 	sl_mlx_draw_map(&window, sl_map, &xpm_imgs);
 	hook_vars = sl_set_hook_vars(sl_map, &window, &xpm_imgs);
 	mlx_key_hook(window.window_ptr, sl_key_hook, &hook_vars);
+	mlx_hook(window.window_ptr, 17, 0, exit_hook, &window);
 	mlx_loop(window.mlx_ptr);
 }

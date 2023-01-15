@@ -4,6 +4,11 @@
         "so_long.h": "c",
         "get_next_line.h": "c",
         "libft.h": "c",
-        "ft_printf.h": "c"
+        "ft_printf.h": "c",
+        "unistd.h": "c",
+        "so_long_bonus.h": "c",
+        "fcntl.h": "c",
+        "__config": "c",
+        "locale": "c"
     }
 }
