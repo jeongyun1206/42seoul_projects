@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 11:15:59 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 13:56:44 by jnho             ###   ########.fr       */
+/*   Updated: 2023/01/13 14:52:02 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,14 @@ void	sl_key_hook_move_enemy(t_hook_vars *hook_vars)
 	t_map	*sl_map;
 	int		direction;
 	int		m_idx;
+	int		cnt;
 
 	sl_map = hook_vars->sl_map;
+	cnt = 0;
 	while (1)
 	{
+		if (cnt == 10)
+			return ;
 		direction = rand() % 4;
 		if (direction == 0)
 			m_idx = sl_map->enemy_idx - sl_map->width;
@@ -75,6 +79,7 @@ void	sl_key_hook_move_enemy(t_hook_vars *hook_vars)
 			m_idx = sl_map->enemy_idx + 1;
 		if (0 < m_idx && m_idx < sl_map->map_size && sl_map->map[m_idx] == '0')
 			break ;
+		cnt++;
 	}
 	sl_mlx_move_enemy(sl_map->enemy_idx, m_idx, hook_vars);
 }
