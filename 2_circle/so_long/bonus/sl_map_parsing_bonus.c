@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:06:12 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/16 15:37:30 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/17 17:20:14 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	sl_map_parsing_confirm_map_size(t_map *sl_map)
 	while (sl_map->map[idx])
 	{
 		confirm_width = 0;
+		if (!confirm_width && sl_map->map[idx] == '\n')
+			error("map_size_error\n");
 		while (sl_map->map[idx] && sl_map->map[idx] != '\n')
 		{
 			confirm_width++;
@@ -59,6 +61,8 @@ void	sl_map_parsing_confirm_map_size(t_map *sl_map)
 		if (sl_map->map[idx] == '\n')
 			idx++;
 	}
+	if (sl_map->map[idx - 1] == '\n')
+		error("map_size_error\n");
 }
 
 void	sl_map_parsing_count_map_elements(t_map *sl_map)
