@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 11:51:52 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 13:04:01 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 14:14:55 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,14 @@ void	sl_map_parsing_confirm_map_valid(t_map *sl_map)
 
 	idx = sl_map_parsing_find_player_location(sl_map->map);
 	tmp_map = ft_strdup(sl_map->map);
+	if (!tmp_map)
+		error("malloc error\n");
 	if (sl_map->item_cnt != dfs(sl_map, tmp_map, idx, 'C'))
 		error("invalid_map_error\n");
 	free(tmp_map);
 	tmp_map = ft_strdup(sl_map->map);
+	if (!tmp_map)
+		error("malloc error\n");
 	if (!dfs(sl_map, tmp_map, idx, 'E'))
 		error("invalid_map_error\n");
 	free(tmp_map);
@@ -72,6 +76,8 @@ void	sl_map_parsing_copy_map_without_nl(t_map *sl_map)
 	m_idx = 0;
 	cpy_idx = 0;
 	cpy_map = (char *)malloc(sizeof(char) * sl_map->width * sl_map->height + 1);
+	if (!cpy_map)
+		error("malloc error\n");
 	while (sl_map->map[m_idx])
 	{
 		if (sl_map->map[m_idx] != '\n')

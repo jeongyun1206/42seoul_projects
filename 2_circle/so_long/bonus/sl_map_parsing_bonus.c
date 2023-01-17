@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:06:12 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/13 13:49:55 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 15:37:30 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	sl_map_parsing_get_map(t_map *sl_map, int fd)
 
 	sl_map->width = 0;
 	sl_map->map = get_next_line(fd);
+	if (!sl_map->map)
+		error("invalid_file\n");
 	while (sl_map->map[sl_map->width] != '\n' && sl_map->map[sl_map->width])
 		sl_map->width++;
 	sl_map->height = 1;
@@ -29,6 +31,8 @@ void	sl_map_parsing_get_map(t_map *sl_map, int fd)
 	{
 		sl_map->height++;
 		buff = ft_strjoin(sl_map->map, map);
+		if (!buff)
+			error("malloc_error\n");
 		free(sl_map->map);
 		free(map);
 		sl_map->map = buff;

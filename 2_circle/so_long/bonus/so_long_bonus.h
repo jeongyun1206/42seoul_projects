@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:06:07 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/15 14:06:31 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 14:19:58 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_hook_vars
 	t_window	*window;
 	t_xpm_img	*xpm_imgs;
 	int			move_cnt;
-	int			hook_control;
 }	t_hook_vars;
 
 void		error(char *error_message);

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:38:36 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/15 13:51:08 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/16 14:25:49 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,38 @@ void	sl_mlx_new_window(t_window *window, t_map *sl_map)
 	int		height;
 
 	mlx_ptr = mlx_init();
+	if (!mlx_ptr)
+		error("mlx error\n");
 	width = sl_map->width;
 	height = sl_map->height;
 	window_ptr = mlx_new_window(mlx_ptr, width * 64, height * 64, "so_long");
+	if (!window_ptr)
+		error("mlx error\n");
 	window->mlx_ptr = mlx_ptr;
 	window->window_ptr = window_ptr;
 }
 
-void	sl_mlx_get_elements_image_from_xpm(void *mlx, t_xpm_img *imgs)
+void	sl_mlx_get_elements_image_from_xpm(void *mlx, t_xpm_img *i)
 {
 	int	x;
 	int	y;
 
-	imgs->player[0] = mlx_xpm_file_to_image(mlx, "./img/player_f0.xpm", &x, &y);
-	imgs->player[1] = mlx_xpm_file_to_image(mlx, "./img/player_f1.xpm", &x, &y);
-	imgs->player[2] = mlx_xpm_file_to_image(mlx, "./img/player_f2.xpm", &x, &y);
-	imgs->player[3] = mlx_xpm_file_to_image(mlx, "./img/player_f3.xpm", &x, &y);
-	imgs->enemy[0] = mlx_xpm_file_to_image(mlx, "./img/enemy0.xpm", &x, &y);
-	imgs->enemy[1] = mlx_xpm_file_to_image(mlx, "./img/enemy1.xpm", &x, &y);
-	imgs->enemy[2] = mlx_xpm_file_to_image(mlx, "./img/enemy2.xpm", &x, &y);
-	imgs->enemy[3] = mlx_xpm_file_to_image(mlx, "./img/enemy3.xpm", &x, &y);
-	imgs->floor = mlx_xpm_file_to_image(mlx, "./img/floor.xpm", &x, &y);
-	imgs->wall = mlx_xpm_file_to_image(mlx, "./img/wall.xpm", &x, &y);
-	imgs->exit = mlx_xpm_file_to_image(mlx, "./img/exit.xpm", &x, &y);
-	imgs->item = mlx_xpm_file_to_image(mlx, "./img/item.xpm", &x, &y);
+	i->player[0] = mlx_xpm_file_to_image(mlx, "./img/player_f0.xpm", &x, &y);
+	i->player[1] = mlx_xpm_file_to_image(mlx, "./img/player_f1.xpm", &x, &y);
+	i->player[2] = mlx_xpm_file_to_image(mlx, "./img/player_f2.xpm", &x, &y);
+	i->player[3] = mlx_xpm_file_to_image(mlx, "./img/player_f3.xpm", &x, &y);
+	i->enemy[0] = mlx_xpm_file_to_image(mlx, "./img/enemy0.xpm", &x, &y);
+	i->enemy[1] = mlx_xpm_file_to_image(mlx, "./img/enemy1.xpm", &x, &y);
+	i->enemy[2] = mlx_xpm_file_to_image(mlx, "./img/enemy2.xpm", &x, &y);
+	i->enemy[3] = mlx_xpm_file_to_image(mlx, "./img/enemy3.xpm", &x, &y);
+	i->floor = mlx_xpm_file_to_image(mlx, "./img/floor.xpm", &x, &y);
+	i->wall = mlx_xpm_file_to_image(mlx, "./img/wall.xpm", &x, &y);
+	i->exit = mlx_xpm_file_to_image(mlx, "./img/exit.xpm", &x, &y);
+	i->item = mlx_xpm_file_to_image(mlx, "./img/item.xpm", &x, &y);
+	if (!i->player[0] || !i->player[1] || !i->player[2] || !i->player[3]
+		|| !i->enemy[0] || !i->enemy[1] || !i->enemy[2] || !i->enemy[3]
+		|| !i->floor || !i->wall || !i->exit || !i->item)
+		error("mlx error\n");
 }
 
 int	sl_mlx_put_image_to_window(t_window *w, t_map *m, void *img, int i)
