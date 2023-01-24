@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 14:43:18 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/24 15:05:45 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/24 15:31:38 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void    pipex_fd_close(t_fd_list *fd_list, int cmd_len)
     pipe_idx = 0;
     while (pipe_idx < cmd_len - 1)
     {
-        close(fd_list->pipe_list[0][0]);
-        close(fd_list->pipe_list[0][1]);
+        close(fd_list->pipe_list[pipe_idx][0]);
+        close(fd_list->pipe_list[pipe_idx][1]);
         pipe_idx++;
     }
 }
@@ -44,6 +44,8 @@ pid_t    pipex_redirect_left(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_i
     pid = fork();
     if (pid == 0)
     {
+        if (fd_list->file1_fd < 0)
+            exit(1);
         dup2(fd_list->file1_fd, 0);
         dup2(pipe_write[1], 1);
         pipex_fd_close(fd_list, cmd_list->cmd_len);

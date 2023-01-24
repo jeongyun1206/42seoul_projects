@@ -6,7 +6,7 @@
 #    By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 11:47:25 by jnho              #+#    #+#              #
-#    Updated: 2023/01/19 16:50:43 by jnho             ###   ########seoul.kr   #
+#    Updated: 2023/01/24 15:16:00 by jnho             ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,11 @@ CFLAGS = -Wall -Werror -Wextra
 LDIBS = ./libft/libft.a
 NAME = pipex
 
-BONUS_SRCS = 
-BONUS_OBJS =
+BONUS_SRCS = pipex_bonus.c \
+			pipex_execute_cmd_line.c \
+			pipex_set_cmd_line.c \
+			pipex_error_control.c
+BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 
 MAN_SRCS =  pipex.c \
 			pipex_execute_cmd_line.c \
@@ -33,6 +36,9 @@ else
 endif
 
 all: $(NAME)
+
+bonus :
+	make BONUS=1 all
 
 $(NAME): $(OBJS)
 	make -C ./libft all
