@@ -3,6 +3,7 @@
         "libft.h": "c",
         "wait.h": "c",
         "stdlib.h": "c",
-        "cstdio": "c"
+        "cstdio": "c",
+        "fcntl.h": "c"
     }
 }

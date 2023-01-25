@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_error_control.c                              :+:      :+:    :+:   */
+/*   pipex_error_control_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:03:00 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/19 14:35:40 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/25 13:42:06 by sayongja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "libft/libft.h"
+#include "pipex_bonus.h"
+#include "../libft/libft.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>

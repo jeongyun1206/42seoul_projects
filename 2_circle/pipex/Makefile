@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 11:47:25 by jnho              #+#    #+#              #
-#    Updated: 2023/01/24 15:16:00 by jnho             ###   ########seoul.kr   #
+#    Updated: 2023/01/25 21:39:38 by sayongja         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,16 +15,19 @@ CFLAGS = -Wall -Werror -Wextra
 LDIBS = ./libft/libft.a
 NAME = pipex
 
-BONUS_SRCS = pipex_bonus.c \
-			pipex_execute_cmd_line.c \
-			pipex_set_cmd_line.c \
-			pipex_error_control.c
+BONUS_SRCS = ./bonus/pipex_bonus.c \
+			./bonus/pipex_error_control_bonus.c \
+			./bonus/pipex_execute_cmd_line_bonus.c \
+			./bonus/pipex_set_cmd_line_bonus.c \
+			./bonus/pipex_set_fd_list_bonus.c \
+			./bonus/get_next_line/get_next_line.c \
+			./bonus/get_next_line/get_next_line_utils.c
 BONUS_OBJS = ${BONUS_SRCS:.c=.o}
 
-MAN_SRCS =  pipex.c \
-			pipex_execute_cmd_line.c \
-			pipex_set_cmd_line.c \
-			pipex_error_control.c
+MAN_SRCS =  ./mandatory/pipex.c \
+			./mandatory/pipex_execute_cmd_line.c \
+			./mandatory/pipex_set_cmd_line.c \
+			./mandatory/pipex_error_control.c
 MAN_OBJS = ${MAN_SRCS:.c=.o}
 
 ifdef BONUS
@@ -58,4 +61,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus%
+.PHONY: all clean fclean re bonus

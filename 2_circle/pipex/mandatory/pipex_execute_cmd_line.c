@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -19,19 +19,12 @@
 #include <sys/wait.h>
 #include <errno.h>
 
-void    pipex_fd_close(t_fd_list *fd_list, int cmd_len)
+void    pipex_fd_close(t_fd_list *fd_list)
 {
-    int pipe_idx;
-
     close(fd_list->file1_fd);
     close(fd_list->file2_fd);
-    pipe_idx = 0;
-    while (pipe_idx < cmd_len - 1)
-    {
-        close(fd_list->pipe_list[pipe_idx][0]);
-        close(fd_list->pipe_list[pipe_idx][1]);
-        pipe_idx++;
-    }
+    close(fd_list->pipe[0]);
+    close(fd_list->pipe[1]);
 }
 
 pid_t    pipex_redirect_left(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_idx)
@@ -40,7 +33,7 @@ pid_t    pipex_redirect_left(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_i
     int     *pipe_write;
     char    **cmd;
 
-    pipe_write = fd_list->pipe_list[cmd_idx];
+    pipe_write = fd_list->pipe;
     pid = fork();
     if (pid == 0)
     {
@@ -48,32 +41,10 @@ pid_t    pipex_redirect_left(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_i
             exit(1);
         dup2(fd_list->file1_fd, 0);
         dup2(pipe_write[1], 1);
-        pipex_fd_close(fd_list, cmd_list->cmd_len);
+        pipex_fd_close(fd_list);
         cmd = cmd_list->cmd_list[cmd_idx];
         if (execve(cmd[0], cmd, cmd_list->env) == -1)
             pipex_execve_cmd_error(cmd[0], pipe_write[1]);
-    }
-    return (pid);  
-}
-
-pid_t    pipex_pipe_both(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_idx)
-{
-    pid_t   pid;
-    int     *pipe_read;
-    int     *pipe_write;
-    char    **cmd;
-
-    pipe_read = fd_list->pipe_list[cmd_idx - 1];
-    pipe_write = fd_list->pipe_list[cmd_idx];
-    pid = fork();
-    if (pid == 0)
-    {
-        dup2(pipe_read[0], 0);
-        dup2(pipe_write[1], 1);
-        pipex_fd_close(fd_list, cmd_list->cmd_len);
-        cmd = cmd_list->cmd_list[cmd_idx];
-        if (execve(cmd[0], cmd, cmd_list->env) == -1)
-            pipex_execve_cmd_error(cmd[0], fd_list->pipe_list[cmd_idx][1]);
     }
     return (pid);  
 }
@@ -84,13 +55,13 @@ pid_t    pipex_redirect_right(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_
     int     *pipe_read;
     char    **cmd;
 
-    pipe_read = fd_list->pipe_list[cmd_idx - 1];
+    pipe_read = fd_list->pipe;
     pid = fork();
     if (pid == 0)
     {
         dup2(pipe_read[0], 0);
         dup2(fd_list->file2_fd, 1);
-        pipex_fd_close(fd_list, cmd_list->cmd_len);
+        pipex_fd_close(fd_list);
         cmd = cmd_list->cmd_list[cmd_idx];
         if (execve(cmd[0], cmd, cmd_list->env) == -1)
             pipex_execve_cmd_error(cmd[0], fd_list->file2_fd);
@@ -100,27 +71,12 @@ pid_t    pipex_redirect_right(t_cmd_list *cmd_list, t_fd_list *fd_list, int cmd_
 
 void    pipex_execute_cmd_list(t_cmd_list *cmd_list, t_fd_list *fd_list)
 {
-    int     cmd_idx;
-    pid_t   *pid_list;
+    pid_t   pid_list[2];
 
-    cmd_idx = 0;
-    pid_list = (pid_t *)malloc(sizeof(pid_t) * cmd_list->cmd_len);
-    if (!pid_list)
-        exit(1);
-    pid_list[cmd_idx] = pipex_redirect_left(cmd_list, fd_list, cmd_idx);
-    cmd_idx++;
-    while (cmd_idx < cmd_list->cmd_len - 1)
-    {
-        pid_list[cmd_idx] = pipex_pipe_both(cmd_list, fd_list, cmd_idx);
-        cmd_idx++;
-    }
-    pid_list[cmd_idx] = pipex_redirect_right(cmd_list, fd_list, cmd_idx);
-    pipex_fd_close(fd_list, cmd_list->cmd_len);
-    cmd_idx = 0;
-    while (cmd_idx < cmd_list->cmd_len)
-    {
-        waitpid(pid_list[cmd_idx], 0, 0);
-        cmd_idx++;
-    }
+    pid_list[0] = pipex_redirect_left(cmd_list, fd_list, 0);
+    pid_list[1] = pipex_redirect_right(cmd_list, fd_list, 1);
+    pipex_fd_close(fd_list);
+    waitpid(pid_list[0], 0, 0);
+    waitpid(pid_list[1], 0, 0);
     exit(0);
 }

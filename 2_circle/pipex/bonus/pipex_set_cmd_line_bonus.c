@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_set_cmd_line.c                               :+:      :+:    :+:   */
+/*   pipex_set_cmd_line_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 13:27:34 by jnho              #+#    #+#             */
-/*   Updated: 2023/01/24 15:27:46 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/01/25 22:59:31 by sayongja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "./libft/libft.h"
+#include "pipex_bonus.h"
+#include "../libft/libft.h"
 #include <errno.h>
 #include <stdio.h>
 #include <fcntl.h>
 
-char ***pipex_get_cmd_list(char **argv, int cmd_len)
+char ***pipex_get_cmd_list(char **av, int cmd_len)
 {
     char    ***cmd_list;
     int     cmd_list_idx;
@@ -29,7 +29,7 @@ char ***pipex_get_cmd_list(char **argv, int cmd_len)
     argv_idx = 2;
     while (cmd_list_idx < cmd_len)
     {
-        cmd_list[cmd_list_idx] = ft_split(argv[argv_idx], ' ');
+        cmd_list[cmd_list_idx] = ft_split(av[argv_idx], ' ');
         if (!cmd_list[cmd_list_idx])
             exit(errno);
         cmd_list_idx++;
@@ -95,13 +95,13 @@ char    *pipex_get_cmd_path(char *cmd, char **env)
     return (0);
 }
 
-void    pipex_set_cmd_list(t_cmd_list *cmd_list, char **argv, int argc, char **env)
+void    pipex_set_cmd_list(t_cmd_list *cmd_list, char **av, int ac, char **env)
 {
     char    *cmd_path;
     int     cmd_idx;
-
-    cmd_list->cmd_len = argc - 3;
-    cmd_list->cmd_list = pipex_get_cmd_list(argv, cmd_list->cmd_len);
+    
+    cmd_list->cmd_len = ac - 3;
+    cmd_list->cmd_list = pipex_get_cmd_list(av, cmd_list->cmd_len);
     cmd_list->env = env;
     cmd_idx = 0;
     while (cmd_list->cmd_list[cmd_idx])
@@ -113,30 +113,5 @@ void    pipex_set_cmd_list(t_cmd_list *cmd_list, char **argv, int argc, char **e
             cmd_list->cmd_list[cmd_idx][0] = cmd_path;
         }
         cmd_idx++;
-    }
-}
-
-void    pipex_set_fd_list(t_fd_list *fd_list, char **argv, int argc)
-{
-    int pipe_idx;
-
-    fd_list->file1_fd = open(argv[1], O_RDONLY);
-    if (fd_list->file1_fd == -1)
-        perror("");
-    fd_list->file2_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
-    if (fd_list->file2_fd == -1)
-        exit(1);
-    fd_list->pipe_list = (int **)malloc(sizeof(int *) * (argc - 4));
-    if (!fd_list->pipe_list)
-        exit(1);
-    pipe_idx = 0;
-    while (pipe_idx < argc - 4)
-    {
-        fd_list->pipe_list[pipe_idx] = (int *)malloc(sizeof(int) * 2);
-        if (!fd_list->pipe_list[pipe_idx])
-            exit(1);
-        if (pipe(fd_list->pipe_list[pipe_idx]) == -1)
-            exit(1);
-        pipe_idx++;
     }
 }
