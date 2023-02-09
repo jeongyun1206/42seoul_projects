@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:51:37 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/05 15:13:15 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 16:16:39 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,10 @@ t_env   *env_new_node(char *env)
     while (env[idx] != '=' && env[idx])
         idx++;
     env_list->key = ft_substr(env, 0, idx);
-    if (!env_list->key)
-        exit(1);
     if (env[idx] == '=')
         env_list->value = ft_substr(env, idx + 1, ft_strlen(env));
     else
-        env_list->value = ft_strdup("");
-    if (!env_list->value)
-        exit(1);
+        env_list->value = 0;
     env_list->next = 0;
     return (env_list);
 }
@@ -68,4 +64,24 @@ char    *env_get_key_in_string(char *str)
     if (!key)
         exit(1);
     return (key);
+}
+
+int env_change_value(char *key, char *new_value, t_env *env_list)
+{
+    t_env *env_buf;
+
+    env_buf = env_list;
+    while (env_buf)
+    {
+        if (!ft_strncmp(env_buf->key, key, ft_strlen(key) + 1))
+        {
+            if (env_buf->value)
+                free(env_buf->value);
+            env_buf->value = new_value;
+            return (1);
+        }
+        env_buf = env_buf->next;
+    }
+    free(new_value);
+    return (0);
 }

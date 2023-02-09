@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:18:47 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/03 17:31:32 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 14:03:32 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	else
 		rtn_arr = (char *)malloc(len + 1);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	idx = 0;
 	while (start < s_len && idx < len && s[start + idx])
 	{

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:37:22 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/17 19:56:09 by jnho             ###   ########.fr       */
+/*   Updated: 2023/02/07 14:03:24 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	s_len = ft_strlen(s);
 	rtn_str = (char *)malloc(s_len + 1);
 	if (!rtn_str)
-		return (0);
+		exit(1);
 	idx = 0;
 	while (s[idx])
 	{

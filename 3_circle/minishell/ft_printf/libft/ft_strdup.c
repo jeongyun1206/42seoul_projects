@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 13:46:53 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/17 19:52:03 by jnho             ###   ########.fr       */
+/*   Updated: 2023/02/07 14:01:02 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup(const char *str)
 		str_len++;
 	rtn_arr = (char *)malloc(str_len + 1);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	idx = 0;
 	while (str[idx])
 	{

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:23:27 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/17 21:14:25 by jnho             ###   ########.fr       */
+/*   Updated: 2023/02/09 13:49:37 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*ft_malloc_split_word(char const *str, size_t *str_idx, char c)
 		str_len++;
 	rtn_arr = (char *)malloc(sizeof(char) * (str_len + 1));
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	rtn_arr_idx = 0;
 	while (str[*str_idx] != c && str[*str_idx])
 		rtn_arr[rtn_arr_idx++] = str[(*str_idx)++];
@@ -81,7 +81,7 @@ char	**ft_split(char const *str, char c)
 	split_cnt = ft_split_cnt(str, c);
 	rtn_split = (char **)malloc(sizeof(char *) * (split_cnt + 1));
 	if (!rtn_split)
-		return (0);
+		exit(1);
 	split_idx = 0;
 	str_idx = 0;
 	while (split_idx < split_cnt)

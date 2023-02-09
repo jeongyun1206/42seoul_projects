@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:39:13 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/15 14:14:34 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 14:02:03 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 	str_cnt = cnt_itoa(n);
 	rtn_arr = (char *)malloc(str_cnt + 1);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	idx = 1;
 	if (n < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 18:15:46 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/21 16:00:22 by jnho             ###   ########.fr       */
+/*   Updated: 2023/02/07 14:01:54 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t cnt, size_t size)
 	idx = 0;
 	rtn_arr = (unsigned char *)malloc(cnt * size);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	while (idx < cnt * size)
 	{
 		rtn_arr[idx] = 0;

@@ -6,11 +6,18 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 14:41:30 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/06 17:58:15 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/09 14:17:56 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void    execute_cmd_error_control(t_cmd *cmd)
+{
+    write(2, cmd->cmd[0], ft_strlen(cmd->cmd[0]));
+    write(2, ": command not found\n", 20);
+    return ;
+}
 
 void    free_all_vars(t_cmd *cmd, int **pipe_arr, pid_t *pid_arr)
 {
@@ -27,8 +34,8 @@ void    free_all_vars(t_cmd *cmd, int **pipe_arr, pid_t *pid_arr)
     while (cmd)
     {
         free_argv_var(cmd->cmd);
-        free(cmd->fds.input_file_name);
-        free(cmd->fds.output_file_name);
+        free_file_list(cmd->fds.input_file_list);
+        free_file_list(cmd->fds.output_file_list);
         prev_cmd = cmd;
         cmd = cmd->next;
         free(prev_cmd);
@@ -39,6 +46,8 @@ pid_t   *set_pid_arr(size_t cmd_len)
 {
     pid_t   *pid_arr;
     
+    if (!cmd_len)
+        return (0);
     pid_arr = (pid_t *)malloc(sizeof(pid_t) * cmd_len);
     if (!pid_arr)
         exit(1);
@@ -50,6 +59,8 @@ int **set_pipe_arr(size_t cmd_len)
     size_t  pipe_idx;
     int     **pipe_arr;
     
+    if (!cmd_len)
+        return (0);
     pipe_arr = (int **)malloc(sizeof(int *) * (cmd_len - 1));
     if (!pipe_arr)
         exit(1);

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:15:37 by jnho              #+#    #+#             */
-/*   Updated: 2022/11/21 15:39:18 by jnho             ###   ########.fr       */
+/*   Updated: 2023/02/07 14:03:55 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ char	*ft_strtrim(char const *s1, char const *set)
 	{
 		rtn_arr = (char *)malloc(1);
 		if (!rtn_arr)
-			return (0);
+			exit(1);
 		rtn_arr[0] = 0;
 		return (rtn_arr);
 	}
 	rtn_arr = (char *)malloc(e_idx - s_idx + 2);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	rtn_idx = 0;
 	while (s_idx <= e_idx)
 		rtn_arr[rtn_idx++] = s1[s_idx++];

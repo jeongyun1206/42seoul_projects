@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:44:26 by seonghyu          #+#    #+#             */
-/*   Updated: 2023/02/06 18:34:29 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/08 16:42:30 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	**cmd_alloc(char **str, t_cmd *cmd, int count)
 	while (i < count - 1)
 	{
 		re[i] = cmd->cmd[i];
-		free(cmd->cmd[i]);
 		i++;
 	}
 	if (cmd->quot_flag[0] == 1)
@@ -40,15 +39,13 @@ char	**cmd_alloc(char **str, t_cmd *cmd, int count)
 
 void	get_token(char *str, t_cmd *cmd)
 {
-	int		count;
 	t_cmd	*tmp;
 
 	tmp = cmd;
-	count = 0;
 	while (*str)
 	{
 		if (tmp->quot_flag[0] == 1 || tmp->quot_flag[1] == 1)
-			tmp->cmd = cmd_alloc(&str, tmp, ++count);
+			tmp->cmd = cmd_alloc(&str, tmp, ++(tmp->cmd_count));
 		else if (*str == '<')
 			get_input(&str, tmp);
 		else if (*str == '>')
@@ -62,21 +59,20 @@ void	get_token(char *str, t_cmd *cmd)
 		}
 		else if (*str == '|')
 		{
-			if (tmp->fds.input_file_name == NULL)
+			if (tmp->fds.input_file_list == NULL && tmp->pipe_idx != 0)
 				tmp->fds.input_pipe_flag = 1;
-			if (tmp->fds.output_file_name == NULL)
+			if (tmp->fds.output_file_list == NULL)
 				tmp->fds.output_pipe_flag = 1;
-			count = 0;
 			tmp->next = init_struct(tmp->pipe_idx + 1);
 			tmp = tmp->next;
 		}
 		else
-			tmp->cmd = cmd_alloc(&str, tmp, ++count);
+			tmp->cmd = cmd_alloc(&str, tmp, ++(tmp->cmd_count));
 		str++;
 	}
-	if (tmp->fds.input_file_name == NULL)
+	if (tmp->fds.input_file_list == NULL && tmp->pipe_idx != 0)
 		tmp->fds.input_pipe_flag = 1;
-	if (tmp->fds.output_file_name == NULL)
+	if (tmp->fds.output_file_list == NULL && tmp->next)
 		tmp->fds.output_pipe_flag = 1;
 }
 
@@ -85,8 +81,7 @@ t_cmd	*init_struct(int num)
 	t_cmd	*re;
 
 	re = (t_cmd *)malloc(sizeof(t_cmd));
-
-	ft_memset(re, 0 ,sizeof(re));
+	ft_memset(re, 0, sizeof(t_cmd));
 	re->pipe_idx = num;
 	return (re);
 }

@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 13:10:13 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/05 16:52:30 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 17:08:35 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void    env_error_control(char **cmd_argv, int option)
 
 void    env_cmd(char **cmd_argv, t_env *env_list)
 {
-    char    **env;
-    int     idx;
+    t_env   *env_list_buf;
 
     if (argv_len(cmd_argv) != 1)
     {
@@ -37,13 +36,11 @@ void    env_cmd(char **cmd_argv, t_env *env_list)
             env_error_control(cmd_argv, 2);
         return ;
     }
-    env = env_list_to_char(env_list);
-    idx = 0;
-    while (env[idx])
+    env_list_buf = env_list;
+    while (env_list_buf)
     {
-        write(1, env[idx], ft_strlen(env[idx]));
-        write(1, "\n", 1);
-        idx++;
+        if (env_list_buf->value)
+            ft_printf("%s=%s\n", env_list_buf->key, env_list_buf->value);
+        env_list_buf = env_list_buf->next;
     }
-    free_argv_var(env);
 }

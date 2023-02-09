@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:10:16 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/02 15:52:16 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/07 14:00:34 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	rtn_len = ft_strlen(s1) + ft_strlen(s2);
 	rtn_arr = (char *)malloc(rtn_len + 1);
 	if (!rtn_arr)
-		return (0);
+		exit(1);
 	rtn_idx = 0;
 	s_idx = 0;
 	while (s1[s_idx])
