@@ -9,6 +9,7 @@
         "cstdlib": "c",
         "locale": "c",
         "get_next_line.h": "c",
-        "history.h": "c"
+        "history.h": "c",
+        "sstream": "c"
     }
 }

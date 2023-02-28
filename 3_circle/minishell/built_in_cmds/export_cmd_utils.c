@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   export_cmd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 13:46:53 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/21 19:06:12 by jnho             ###   ########seoul.kr  */
+/*   Created: 2023/02/21 18:23:33 by jnho              #+#    #+#             */
+/*   Updated: 2023/02/22 13:09:11 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strdup(const char *str)
+void	export_cmd_modify_env(char *key, char *key_value, t_env *env_list)
 {
-	size_t	idx;
-	size_t	str_len;
-	char	*rtn_arr;
+	char	*value;
 
-	str_len = 0;
-	while (str[str_len])
-		str_len++;
-	rtn_arr = (char *)malloc(str_len + 1);
-	if (!rtn_arr)
-		exit(1);
-	idx = 0;
-	while (str[idx])
-	{
-		rtn_arr[idx] = str[idx];
-		idx++;
-	}
-	rtn_arr[idx] = '\0';
-	return (rtn_arr);
+	value = ft_strchr(key_value, '=');
+	if (value)
+		value = ft_strdup(value);
+	else
+		value = ft_strdup("");
+	env_change_value(key, value, env_list);
 }

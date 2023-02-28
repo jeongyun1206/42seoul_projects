@@ -3,49 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: seonghyu <seonghyu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:07:17 by seonghyu          #+#    #+#             */
-/*   Updated: 2023/02/08 16:09:08 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/02/22 18:49:46 by seonghyu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_string(char **str, t_cmd *cmd, int flag)
+void	get_endofstr(char **str, t_cmd *cmd)
+{
+	while (**str)
+	{
+		if (**str == '\'' || **str == '\"')
+			set_flag(cmd, **str);
+		else if ((cmd->quot_flag[0] == 0 && cmd->quot_flag[1] == 0) \
+				&& (**str == ' ' || **str == '>' \
+				|| **str == '<' || **str == '|'))
+			break ;
+		(*str)++;
+	}
+}
+
+char	*get_string(char **str, t_cmd *cmd)
 {
 	char	*start;
 	char	*re;
+	char	*tmp;
 	int		length;
 
 	start = *str;
 	while (**str == ' ')
 			(*str)++;
-	if (flag == 2)
-		start = *str;
-	while (**str)
-	{
-		if (flag == 0 && **str == '\'')
-		{
-			cmd->quot_flag[0] = 0;
-			break ;
-		}
-		else if (flag == 1 && **str == '\"')
-		{
-			cmd->quot_flag[1] = 0;
-			break ;
-		}
-		else if (flag == 2 && (**str == ' ' || **str == '>' || **str == '<'))
-			break ;
-		(*str)++;
-	}
+	get_endofstr(str, cmd);
 	length = *str - start;
-	re = (char *)malloc(sizeof(char) * (length + 1));
-	if (!re)
+	tmp = (char *)malloc(sizeof(char) * (length + 1));
+	if (!tmp)
 		exit(EXIT_FAILURE);
-	ft_strlcpy(re, start, (length + 1));
-	if (flag == 2)
-		(*str)--;
+	ft_strlcpy(tmp, start, (length + 1));
+	re = trans_str(tmp, cmd);
+	free(tmp);
 	return (re);
 }
 
@@ -56,12 +54,7 @@ void	list_append(char **str, t_cmd *cmd, int flag)
 	int		i;
 
 	i = 0;
-	if (cmd->quot_flag[0] == 1)
-		name = get_string(str, cmd, SINGLE);
-	else if (cmd->quot_flag[1] == 1)
-		name = get_string(str, cmd, DOUBLE);
-	else
-		name = get_string(str, cmd, NONE);
+	name = get_string(str, cmd);
 	node = ms_lstnew(name, flag % 2);
 	if (flag == INPUT || flag == HEREDOC)
 		ms_lstadd_back(&(cmd->fds.input_file_list), node);
@@ -71,50 +64,38 @@ void	list_append(char **str, t_cmd *cmd, int flag)
 
 void	get_input(char **str, t_cmd *cmd)
 {
+	int	heredoc;
+
+	heredoc = 0;
 	(*str)++;
 	if (**str == '<')
 	{
 		(*str)++;
-		list_append(str, cmd, HEREDOC);
-		return ;
+		heredoc = 1;
 	}
 	while (**str == ' ')
 		(*str)++;
-	if (**str == '\"' || **str == '\'')
-	{
-		set_flag(cmd, **str);
-		(*str)++;
-	}
-	list_append(str, cmd, INPUT);
+	if (heredoc == 1)
+		list_append(str, cmd, HEREDOC);
+	else
+		list_append(str, cmd, INPUT);
 }
 
 void	get_output(char **str, t_cmd *cmd)
 {
+	int	append;
+
+	append = 0;
 	(*str)++;
 	if (**str == '>')
 	{
 		(*str)++;
-		list_append(str, cmd, APPEND);
-		return ;
+		append = 1;
 	}
 	while (**str == ' ')
 		(*str)++;
-	if (**str == '\"' || **str == '\'')
-	{
-		set_flag(cmd, **str);
-		(*str)++;
-	}
-	list_append(str, cmd, OUTPUT);
-}
-
-void	set_flag(t_cmd *cmd, char c)
-{
-	if (c == '\'' && cmd->quot_flag[1] == 0)
-		cmd->quot_flag[0] = 1;
-	else if (c == '\"' && cmd->quot_flag[0] == 0)
-		cmd->quot_flag[1] = 1;
-	else if (c == '\'' && cmd->quot_flag[0] == 1)
-		cmd->quot_flag[0] = 0;
-	else if (c == '\"' && cmd->quot_flag[1] == 1)
-		cmd->quot_flag[1] = 0;
+	if (append == 1)
+		list_append(str, cmd, APPEND);
+	else
+		list_append(str, cmd, OUTPUT);
 }

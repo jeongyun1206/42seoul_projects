@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   minishell_execute_utils_2.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 13:46:53 by jnho              #+#    #+#             */
-/*   Updated: 2023/02/21 19:06:12 by jnho             ###   ########seoul.kr  */
+/*   Created: 2023/02/22 12:48:07 by jnho              #+#    #+#             */
+/*   Updated: 2023/02/22 19:53:06 by jnho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strdup(const char *str)
+void	execute_fork_no_cmds(t_cmd *exe_cmd, t_env *env_list, int **pipe_arr)
 {
-	size_t	idx;
-	size_t	str_len;
-	char	*rtn_arr;
+	redirect_fds(exe_cmd, env_list, pipe_arr, FORK_NO);
+	execute_built_in_cmds(exe_cmd, env_list);
+}
 
-	str_len = 0;
-	while (str[str_len])
-		str_len++;
-	rtn_arr = (char *)malloc(str_len + 1);
-	if (!rtn_arr)
-		exit(1);
-	idx = 0;
-	while (str[idx])
-	{
-		rtn_arr[idx] = str[idx];
-		idx++;
-	}
-	rtn_arr[idx] = '\0';
-	return (rtn_arr);
+void	exit_cmd_line(t_cmd *cmd, pid_t *pid_arr, int **pipe_arr)
+{
+	close_all_fds(cmd, pipe_arr);
+	wait_all_pid(pid_arr, lstlen(cmd));
+	free_all_vars(cmd, pipe_arr, pid_arr);
 }
