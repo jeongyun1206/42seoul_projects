@@ -6,11 +6,11 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 14:33:03 by jnho              #+#    #+#             */
-/*   Updated: 2023/03/08 17:26:23 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/03/12 14:53:02 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philo.h>
+#include "philo.h"
 
 int set_info_atoi(char *arg)
 {
@@ -25,6 +25,7 @@ int set_info_atoi(char *arg)
             return (-1);
         rtn *= 10;
         rtn += arg[idx] - '0';
+        idx++;
     }
     return (rtn);
 }
@@ -56,13 +57,13 @@ int set_argv_info(int argc, char **argv, t_info *info)
 
 int set_info(int argc, char **argv, t_info *info)
 {
-    int             idx;
+    int idx;
 
     if (!set_argv_info(argc, argv, info))
         return (0);
     if (gettimeofday(&info->start_time, 0) == -1)
         return (0);
-    pthread_mutex_init(&info->info_mutex, 0);
+    pthread_mutex_init(&info->die_mutex, 0);
     pthread_mutex_init(&info->print_mutex, 0);
     info->fork_arr = (t_fork *)malloc(sizeof(t_fork) * info->philo_num);
     if (!info->fork_arr)
@@ -70,7 +71,7 @@ int set_info(int argc, char **argv, t_info *info)
     idx = 0;
     while (idx < info->philo_num)
     {
-        info->fork_arr[idx].state = NOTUSING;
+        info->fork_arr[idx].state = AVAIL;
         pthread_mutex_init(&info->fork_arr[idx].fork_mutex, 0);
         idx++;
     }
@@ -83,6 +84,8 @@ int set_info(int argc, char **argv, t_info *info)
 void    set_philo_arr(t_philo *philo_arr, t_info *info)
 {
     int idx;
+    int l_fork_idx;
+    int r_fork_idx;
 
     idx = 0;
     while (idx < info->philo_num)
@@ -90,13 +93,18 @@ void    set_philo_arr(t_philo *philo_arr, t_info *info)
         philo_arr[idx].info = info;
         philo_arr[idx].philo_id = idx + 1;
         if (idx == 0)
-            philo_arr[idx].l_fork_idx = info->philo_num - 1;
+            l_fork_idx = info->philo_num - 1;
         else
-            philo_arr[idx].l_fork_idx = idx - 1;
-        if (idx == info->philo_num - 1)
-            philo_arr[idx].r_fork_idx = 0;
+            l_fork_idx = idx - 1;
+        r_fork_idx = idx;
+        if (philo_arr[idx].philo_id % 2)
+            philo_arr[idx].first_fork = &info->fork_arr[l_fork_idx];
         else
-            philo_arr[idx].r_fork_idx = idx;
+            philo_arr[idx].first_fork = &info->fork_arr[r_fork_idx];
+        if (philo_arr[idx].philo_id % 2)
+            philo_arr[idx].second_fork = &info->fork_arr[r_fork_idx];
+        else
+            philo_arr[idx].second_fork = &info->fork_arr[l_fork_idx];
         philo_arr[idx].fork_cnt = 0;
         philo_arr[idx].eating_cnt = 0;
         philo_arr[idx].last_eat = info->start_time;
