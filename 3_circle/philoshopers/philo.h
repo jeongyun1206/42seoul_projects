@@ -3,34 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 14:29:15 by jnho              #+#    #+#             */
-/*   Updated: 2023/03/12 14:52:54 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/03/16 14:23:27 by sayongja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <sys/time.h>
+#ifndef PHILO_H
+
+# define PHILO_H
+# include <unistd.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <sys/time.h>
 
 /* philo states code */
-#define SLEEP 0
-#define THINK 1
-#define EAT 2
+# define SLEEP 0
+# define THINK 1
+# define EAT 2
 
 /* fork status */
-#define NOT_AVAIL 0
-#define AVAIL 1
+# define NOT_AVAIL 0
+# define AVAIL 1
 
 /* philo message type */
-#define FORK_MESSAGE 0
-#define EAT_MESSAGE 1
-#define SLEEP_MESSAGE 2
-#define THINK_MESSAGE 3
-#define DIE_MESSAGE 4
+# define FORK_MESSAGE 0
+# define EAT_MESSAGE 1
+# define SLEEP_MESSAGE 2
+# define THINK_MESSAGE 3
+# define DIE_MESSAGE 4
 
 typedef struct s_fork
 {
@@ -69,10 +72,11 @@ typedef struct s_philo
 void    philo_message(int type, t_philo *philo);
 int     set_info(int argc, char **argv, t_info *info);
 void    set_philo_arr(t_philo *philo_arr, t_info *info);
-int     philo_simulation(t_info *info, t_philo *philo_arr);
 void    *routine(void *arg);
-int check_time(struct timeval s_time, struct timeval c_time, int check_time);
-int philo_check_die(t_philo *philo);
-int philo_think(t_philo *philo);
-int philo_sleep(t_philo *philo);
-int philo_eat(t_philo *philo);
+int     check_time(struct timeval s_time, struct timeval c_time, int check_time);
+int     philo_check_die(t_philo *philo);
+int     philo_think(t_philo *philo);
+int     philo_sleep(t_philo *philo);
+int     philo_eat(t_philo *philo);
+
+#endif
