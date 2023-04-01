@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 14:30:15 by jnho              #+#    #+#             */
-/*   Updated: 2023/03/19 16:14:57 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/04/01 15:29:35 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,24 @@ int	philo_error_control(t_philo *philo_arr, t_info *info)
 	return (1);
 }
 
+void	philo_pthread_create(t_info *info, t_philo *philo_arr)
+{
+	int	idx;
+
+	idx = 1;
+	while (idx < info->philo_num)
+	{
+		pthread_create(&info->thread_arr[idx], 0, routine, &philo_arr[idx]);
+		idx += 2;
+	}
+	idx = 0;
+	while (idx < info->philo_num)
+	{
+		pthread_create(&info->thread_arr[idx], 0, routine, &philo_arr[idx]);
+		idx += 2;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	info;
@@ -57,18 +75,7 @@ int	main(int argc, char **argv)
 	if (!philo_arr)
 		return (philo_error_control(philo_arr, &info));
 	set_philo_arr(philo_arr, &info);
-	idx = 1;
-	while (idx < info.philo_num)
-	{
-		pthread_create(&info.thread_arr[idx], 0, routine, &philo_arr[idx]);
-		idx += 2;
-	}
-	idx = 0;
-	while (idx < info.philo_num)
-	{
-		pthread_create(&info.thread_arr[idx], 0, routine, &philo_arr[idx]);
-		idx += 2;
-	}
+	philo_pthread_create(&info, philo_arr);
 	idx = -1;
 	while (++idx < info.philo_num)
 		pthread_join(info.thread_arr[idx], 0);
