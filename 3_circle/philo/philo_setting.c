@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 14:33:03 by jnho              #+#    #+#             */
-/*   Updated: 2023/03/19 16:14:48 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/04/01 19:27:11 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ int	set_info(int argc, char **argv, t_info *info)
 {
 	int	idx;
 
+	pthread_mutex_init(&info->die_mutex, 0);
+	pthread_mutex_init(&info->print_mutex, 0);
+	if (argc < 5 || argc > 6)
+		return (0);
 	if (!set_argv_info(argc, argv, info))
 		return (0);
 	if (gettimeofday(&info->start_time, 0) == -1)
 		return (0);
-	pthread_mutex_init(&info->die_mutex, 0);
-	pthread_mutex_init(&info->print_mutex, 0);
 	info->fork_arr = (t_fork *)malloc(sizeof(t_fork) * info->philo_num);
 	if (!info->fork_arr)
 		return (0);

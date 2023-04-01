@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 16:38:25 by jnho              #+#    #+#             */
-/*   Updated: 2023/03/19 16:11:41 by jnho             ###   ########.fr       */
+/*   Updated: 2023/04/01 15:47:59 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ int	philo_sleep(t_philo *philo)
 		usleep(500);
 	}
 	philo->cur_state = THINK;
-	usleep(300);
+	usleep(1000);
 	return (1);
 }

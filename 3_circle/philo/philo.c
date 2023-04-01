@@ -6,7 +6,7 @@
 /*   By: jnho <jnho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 14:30:15 by jnho              #+#    #+#             */
-/*   Updated: 2023/04/01 15:29:35 by jnho             ###   ########seoul.kr  */
+/*   Updated: 2023/04/01 19:26:45 by jnho             ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,28 @@ void	philo_pthread_create(t_info *info, t_philo *philo_arr)
 	}
 }
 
+void	*ft_memset(void *ptr, int value, size_t num)
+{
+	size_t			idx;
+	unsigned char	*mem;
+
+	mem = ptr;
+	idx = 0;
+	while (idx < num)
+	{
+		mem[idx] = value;
+		idx++;
+	}
+	return (ptr);
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	info;
 	t_philo	*philo_arr;
 	int		idx;
 
+	ft_memset(&info, 0, sizeof(t_info));
 	if (!set_info(argc, argv, &info))
 		return (philo_error_control(0, &info));
 	philo_arr = (t_philo *)malloc(sizeof(t_philo) * info.philo_num);
