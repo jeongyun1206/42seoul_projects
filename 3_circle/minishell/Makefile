@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seonghyu <seonghyu@student.42.fr>          +#+  +:+       +#+         #
+#    By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 16:09:44 by jnho              #+#    #+#              #
-#    Updated: 2023/02/22 17:17:29 by seonghyu         ###   ########.fr        #
+#    Updated: 2024/02/26 16:41:04 by sayongja         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -g -Wall -Werror -Wextra -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include 
+CFLAGS = -g -Wall -Werror -Wextra -lreadline -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include 
 LDIBS = ./ft_printf/libftprintf.a
 SRCS =  main.c \
 		get_next_line/get_next_line.c \
@@ -42,9 +42,7 @@ SRCS =  main.c \
 		parser/string.c
 OBJS = $(SRCS:.c=.o)
 NAME = minishell
-LINKING_FLAGS = -lreadline -L${HOME}/.brew/opt/readline/lib
-COMFILE_FLAGS = -I${HOME}/.brew/opt/readline/include
-
+LINKING_FLAGS = -lreadline -L/usr/local/opt/readline/lib -I/usr/local/opt/readline/include
 all: $(NAME)
 
 $(NAME): $(SRCS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seonghyu <seonghyu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sayongja <sayongja@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:07:17 by seonghyu          #+#    #+#             */
-/*   Updated: 2023/02/22 18:49:46 by seonghyu         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:32:42 by sayongja         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void	list_append(char **str, t_cmd *cmd, int flag)
 {
 	t_file	*node;
 	char	*name;
-	int		i;
 
-	i = 0;
 	name = get_string(str, cmd);
 	node = ms_lstnew(name, flag % 2);
 	if (flag == INPUT || flag == HEREDOC)
